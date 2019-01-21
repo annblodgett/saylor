@@ -1,0 +1,18 @@
+Course Description
+Introduction to the C++ programming language, focusing on syntax for primitive types, control structures, vectors, strings, structs, classes, functions, file I/O, exceptions and other programming constructs.
+ 
+
+Course Introduction
+In this course, we will learn the mechanics of editing and compiling programs in C++. We will begin with a discussion of the essential elements of C++ programming: variables, loops, expressions, functions, and string class. Then, we will cover the basics of object-oriented programming: classes, inheritance, templates, exceptions, and file manipulation. We will then review function and class templates and the classes that perform output and input of characters to/from files. This course will also cover namespaces, exception handling, and preprocessor directives. In the last part of the course, we will learn some slightly more sophisticated programming techniques that deal with data structures such as linked lists and binary trees.
+
+This course is comprised of the following units:
+
+Unit 1: Introduction and Setup
+Unit 2: Dealing with Data and Compound Types
+Unit 3: Object-Oriented Programming
+Unit 4: Advanced Concepts
+Unit 5: Memory Management and Testing
+Unit 6: Useful Examples and C++ Glossary
+
+
+https://learn.saylor.org/mod/page/view.php?id=20640
