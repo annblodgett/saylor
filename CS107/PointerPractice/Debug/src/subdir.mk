@@ -5,14 +5,17 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../src/PointerPractice.cpp \
+../src/addTwoNumbers.cpp \
 ../src/exit.cpp 
 
 OBJS += \
 ./src/PointerPractice.o \
+./src/addTwoNumbers.o \
 ./src/exit.o 
 
 CPP_DEPS += \
 ./src/PointerPractice.d \
+./src/addTwoNumbers.d \
 ./src/exit.d 
 
 
