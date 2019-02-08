@@ -7,58 +7,128 @@
 //============================================================================
 
 
-
-/*
- * Assignment Description:
-1) Given some text (in a file or a string), break it into words.
-2) Convert each word to all lowerCase letters. (A pre-normalized copy of the Gettysburg Address is given in ——-).
-3 Create a node with the first word of the document.
-4) Refer to it (store it in a variable) as "tree", for it shall be the root.
-5) For each succeeding word, find or insert a node in the tree with the word in it.
-6) Create a function which prints out the tree.
-7) Create a function which returns the size (the number of nodes) in each tree.
-8) Augment your definition of a node to include a tally.
-		As you build a tree, keep a tally of how many times each word is observed.
-9) Alter your output to show tallies:
-10)Create a function which traverses the tree and outputs the words in alphabetical order.
-11)Create a function which outputs a histogram of the depths of the nodes.
-12)Create a function which displays the shape of a tree.
-		It's hard to make it pretty if all you have is text, so don't waste a lot of time.
-		I'd go further, and opine that text is an insufficient medium to draw very pretty trees.
-		Laying the tree on its side is practical.
-13)Create a function which takes a possibly badly-balanced tree and produces a balanced- or nearly-balanced tree.
-		(Unless there are 2^n - 1 words, the tree cannot be perfectly balanced.)
-14)When things seem to work on small tests, use the Gettysburg Address.
- */
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
 using namespace std;
+/*
+ *
+ * This binary tree code implementation *IS NOT MINE *
+ * It is from http://math.hws.edu/eck/cs225/s03/binary_trees/
+ * Author is David Eck; I am re-using the excellent code he has written.
+ *
+ */
+
+struct TreeNode {
+        // An object of type TreeNode represents one node
+        // in a binary tree of strings.
+
+   string item;      // The data in this node.
+   TreeNode *left;    // Pointer to left subtree.
+   TreeNode *right;   // Pointer to right subtree.
+
+   TreeNode(string str) {
+          // Constructor.  Make a node containing str.
+      item = str;
+      left = NULL;
+      right = NULL;
+   }
+
+};  // end struct Treenode
+
+void treeInsert(TreeNode *&root, string newItem) {
+       // Add the item to the binary sort tree to which the parameter
+       // "root" refers.  Note that root is passed by reference since
+       // its value can change in the case where the tree is empty.
+   if ( root == NULL ) {
+          // The tree is empty.  Set root to point to a new node containing
+          // the new item.  This becomes the only node in the tree.
+      root = new TreeNode( newItem );
+              // NOTE:  The left and right subtrees of root
+              // are automatically set to NULL by the constructor.
+              // This is important!
+      return;
+   }
+   else if ( newItem < root->item ) {
+      treeInsert( root->left, newItem );
+   }
+   else {
+      treeInsert( root->right, newItem );
+   }
+}  // end treeInsert()
+
+
+
+int countNodes( TreeNode *root ) {
+      // Count the nodes in the binary tree to which
+      // root points, and return the answer.
+   if ( root == NULL )
+      return 0;  // The tree is empty.  It contains no nodes.
+   else {
+      int count = 1;   // Start by counting the root.
+      count += countNodes(root->left);  // Add the number of nodes
+                                       //     in the left subtree.
+      count += countNodes(root->right); // Add the number of nodes
+                                       //    in the right subtree.
+      return count;  // Return the total.
+   }
+} // end countNodes()
+
+void inorderPrint( TreeNode *root ) {
+      // Print all the items in the tree to which root points.
+      // The items in the left subtree are printed first, followed
+      // by the item in the root node, followed by the items in
+      // the right subtree.
+   if ( root != NULL ) {  // (Otherwise, there's nothing to print.)
+      inorderPrint( root->left );    // Print items in left subtree.
+      cout << root->item << " ";     // Print the root item.
+      inorderPrint( root->right );   // Print items in right subtree.
+   }
+} // end inorderPrint()
 
 int main() {
 
-	//open the input file
-	//read the first word in the file and then make it the root of a new tree
-	//repeat until there are no more lines in the file:
-		//scan the input file line by line
-		//break the line into words
-		//insert each word into  Binary Tree in the appropriate spot
+	//get input
+	string line;
+	vector <string> wordList;
+	ifstream input;
 
-	// After the entire file is read, close the file
+	input.open("gettysburg_words.txt");
 
-	//Print the tree out
+	if (input.is_open()) {
+		while (!input.eof()) {
+			getline(input, line);
+			string word;
+			stringstream s(line);
 
-	//Print the size of the tree out
+			while (s >> word) {
+				std::transform(word.begin(), word.end(), word.begin(),::tolower);
+				wordList.push_back(word);
+			} //end second while
+		} //end first while
+	} //end if
+	else {
+		cout << "Error opening file" << endl;
+	} //end else
+	input.close();
 
-	//Print the words in the tree in alphabetical order
+	string first;
+	first = wordList[0];
+	TreeNode* tree;
+	tree = new TreeNode(first);
 
-	//Print a histogram of the depths of the notes
 
-	//Print the shape of the tree if it were on its side
+	for(unsigned int i =1; i< wordList.size(); i++){
+		treeInsert(tree, wordList[i]);
+	}// end for
 
-	//Balance the tree
-
-	//Print the tree
-
+	cout <<"There are "<< countNodes(tree)<<" nodes in the tree."<<endl;
 	return 0;
+
+
+
 }

@@ -10,7 +10,7 @@ https://www.geeksforgeeks.org/stringstream-c-applications/
 1. toLowerCase(string)
 ---
 https://www.geeksforgeeks.org/conversion-whole-string-uppercase-lowercase-using-stl-c/
-
+---
 All of these need to be in the Binary Tree class :
 
 Node createNode(string);
